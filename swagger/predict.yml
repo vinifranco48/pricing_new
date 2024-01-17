@@ -1,0 +1,83 @@
+swagger: '2.0'
+info:
+  title: API de Previsão de Preços
+  description: Documentação da API Flask para prever preços de produtos
+  version: '1.0'
+host: 'localhost:5000'
+basePath: /
+schemes:
+  - http
+  - https
+tags:
+  - name: pricing
+    description: Operações relacionadas a preços
+
+paths:
+  /predict:
+    post:
+      tags:
+        - pricing
+      summary: Prever preço do produto
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Dados de entrada para prever o preço
+          required: true
+          schema:
+            $ref: '#/definitions/InputData'
+      responses:
+        200:
+          description: Previsão de preço bem-sucedida
+          schema:
+            $ref: '#/definitions/OutputData'
+        400:
+          description: Erro na solicitação
+
+definitions:
+  InputData:
+    type: object
+    required:
+      - product_name_lenght
+      - product_description_lenght
+      - product_photos_qty
+      - product_weight_g
+      - product_length_cm
+      - product_height_cm
+      - product_width_cm
+      - product_category_name
+    properties:
+      product_name_lenght:
+        type: number
+        description: Tamanho do nome do produto
+      product_description_lenght:
+        type: number
+        description: Tamanho da descrição do produto
+      product_photos_qty:
+        type: number
+        description: Quantidade de fotos do produto
+      product_weight_g:
+        type: number
+        description: Peso do produto em gramas
+      product_length_cm:
+        type: number
+        description: Comprimento do produto em centímetros
+      product_height_cm:
+        type: number
+        description: Altura do produto em centímetros
+      product_width_cm:
+        type: number
+        description: Largura do produto em centímetros
+      product_category_name:
+        type: string
+        description: Nome da categoria do produto
+
+  OutputData:
+    type: object
+    properties:
+      previsao:
+        type: number
+        description: Previsão de preço do produto
