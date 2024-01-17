@@ -21,5 +21,5 @@ WORKDIR /app
 EXPOSE 5000
 
 # Comando para iniciar a aplicação quando o contêiner for iniciado
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "-w", "4", "app:app"]
 
